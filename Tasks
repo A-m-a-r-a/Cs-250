@@ -1,0 +1,129 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Scanner;
+
+class Task {
+    private String description;
+    private int priority;
+
+    public Task(String description, int priority) {
+        this.description = description;
+        this.priority = priority;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+}
+
+public class TaskManager {
+    private ArrayList<Task> tasks;
+
+    public TaskManager() {
+        tasks = new ArrayList<>();
+    }
+
+    public void addTask(String description, int priority) {
+        Task task = new Task(description, priority);
+        tasks.add(task);
+    }
+
+    public void displayTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks available.");
+            return;
+        }
+        System.out.println("Tasks:");
+        for (Task task : tasks) {
+            System.out.println("Description: " + task.getDescription() + ", Priority: " + task.getPriority());
+        }
+    }
+
+    public void removeTask(String description) {
+        tasks.removeIf(task -> task.getDescription().equals(description));
+    }
+
+    public void updatePriority(String description, int newPriority) {
+        for (Task task : tasks) {
+            if (task.getDescription().equals(description)) {
+                task.setPriority(newPriority);
+                return;
+            }
+        }
+        System.out.println("Task not found.");
+    }
+
+    public void displayTasksSortedByPriority() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks available.");
+            return;
+        }
+        ArrayList<Task> sortedTasks = new ArrayList<>(tasks);
+        Collections.sort(sortedTasks, Comparator.comparingInt(Task::getPriority));
+        System.out.println("Tasks sorted by priority:");
+        for (Task task : sortedTasks) {
+            System.out.println("Description: " + task.getDescription() + ", Priority: " + task.getPriority());
+        }
+    }
+
+    public static void main(String[] args) {
+        TaskManager taskManager = new TaskManager();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nTask Manager Menu:");
+            System.out.println("1. Add a task");
+            System.out.println("2. Display all tasks");
+            System.out.println("3. Remove a task");
+            System.out.println("4. Update task priority");
+            System.out.println("5. Display tasks sorted by priority");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter task description: ");
+                    String description = scanner.nextLine();
+                    System.out.print("Enter task priority: ");
+                    int priority = scanner.nextInt();
+                    taskManager.addTask(description, priority);
+                    break;
+                case 2:
+                    taskManager.displayTasks();
+                    break;
+                case 3:
+                    System.out.print("Enter task description to remove: ");
+                    String descToRemove = scanner.nextLine();
+                    taskManager.removeTask(descToRemove);
+                    break;
+                case 4:
+                    System.out.print("Enter task description to update priority: ");
+                    String descToUpdate = scanner.nextLine();
+                    System.out.print("Enter new priority: ");
+                    int newPriority = scanner.nextInt();
+                    taskManager.updatePriority(descToUpdate, newPriority);
+                    break;
+                case 5:
+                    taskManager.displayTasksSortedByPriority();
+                    break;
+                case 6:
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        }
+    }
+}
