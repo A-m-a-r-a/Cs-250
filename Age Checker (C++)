@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+// Function to determine if the user is an adult or a minor
+void determineAgeCategory(int age) {
+    if (age >= 18) {
+        cout << "You are an adult." << endl;
+    } else {
+        cout << "You are a minor." << endl;
+    }
+}
+
+int main() {
+    int age;
+
+    cout << "Enter your age: ";
+    cin >> age;
+
+    // Check if the entered age is non-negative
+    if (age >= 0) {
+        determineAgeCategory(age);
+    } else {
+        cout << "Invalid age! Please enter a non-negative integer." << endl;
+    }
+
+    return 0;
+}
