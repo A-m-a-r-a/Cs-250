@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{    
+    int divisor, dividend, quotient, remainder;
+
+    // Takes user input
+    cout << "Enter dividend: ";
+    cin >> dividend;
+
+    // Takes user input
+    cout << "Enter divisor: ";
+    cin >> divisor;
+
+    // The division operator / computes the quotient
+    quotient = dividend / divisor;
+
+    // The modulus operator % computes the remainder 
+    remainder = dividend % divisor;
+
+    cout << "Quotient = " << quotient << endl;
+    cout << "Remainder = " << remainder;
+
+    return 0;
+}
