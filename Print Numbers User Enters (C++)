@@ -4,9 +4,11 @@ using namespace std;
 int main() {    
     int number;
 
+    // Allows user input
     cout << "Enter an integer: ";
     cin >> number;
 
+    // Prints the input from before
     cout << "You entered " << number;    
     return 0;
 }
