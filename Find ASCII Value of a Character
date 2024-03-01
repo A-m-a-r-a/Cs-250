@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+ // Definition of the main function, which is the entry point of the program.
+int main() {  
+
+    //Declaring a variable 'c' of type char, which will store the entered character.
+    char c;   
+
+    // Outputting a prompt to enter a character.
+    cout << "Enter a character: ";  
+
+    // Reading a character from the standard input (keyboard) and storing it in the variable 'c'.
+    cin >> c;          
+
+    // Outputting the ASCII value of the entered character by casting it to an integer.
+    cout << "ASCII Value of " << c << " is " << int(c);  
+    return 0;          
+}
