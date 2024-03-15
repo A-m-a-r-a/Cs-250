@@ -1,0 +1,156 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Product {
+    private int productId;
+    private String productName;
+    private String category;
+    private int quantityInStock;
+    private double pricePerUnit;
+
+    public Product(int productId, String productName, String category, int quantityInStock, double pricePerUnit) {
+        this.productId = productId;
+        this.productName = productName;
+        this.category = category;
+        this.quantityInStock = quantityInStock;
+        this.pricePerUnit = pricePerUnit;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public int getQuantityInStock() {
+        return quantityInStock;
+    }
+
+    public double getPricePerUnit() {
+        return pricePerUnit;
+    }
+
+    public void setQuantityInStock(int quantityInStock) {
+        this.quantityInStock = quantityInStock;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", category='" + category + '\'' +
+                ", quantityInStock=" + quantityInStock +
+                ", pricePerUnit=" + pricePerUnit +
+                '}';
+    }
+}
+
+class InventoryManager {
+    private ArrayList<Product> inventory;
+
+    public InventoryManager() {
+        this.inventory = new ArrayList<>();
+    }
+
+    public void addProduct(Product product) {
+        inventory.add(product);
+        System.out.println("Product added successfully.");
+    }
+
+    public void removeProduct(int productId) {
+        for (Product product : inventory) {
+            if (product.getProductId() == productId) {
+                inventory.remove(product);
+                System.out.println("Product removed successfully.");
+                return;
+            }
+        }
+        System.out.println("Product not found.");
+    }
+
+    public void updateQuantity(int productId, int newQuantity) {
+        for (Product product : inventory) {
+            if (product.getProductId() == productId) {
+                product.setQuantityInStock(newQuantity);
+                System.out.println("Quantity updated successfully.");
+                return;
+            }
+        }
+        System.out.println("Product not found.");
+    }
+
+    public void displayInventory() {
+        if (inventory.isEmpty()) {
+            System.out.println("Inventory is empty.");
+            return;
+        }
+        System.out.println("Inventory:");
+        for (Product product : inventory) {
+            System.out.println(product);
+        }
+    }
+}
+
+public class InventoryManagementSystem {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        InventoryManager manager = new InventoryManager();
+
+        while (true) {
+            System.out.println("\n1. Add Product");
+            System.out.println("2. Remove Product");
+            System.out.println("3. Update Quantity");
+            System.out.println("4. Display Inventory");
+            System.out.println("5. Exit");
+            System.out.println("Enter your choice:");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter product ID:");
+                    int productId = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline character
+                    System.out.println("Enter product name:");
+                    String productName = scanner.nextLine();
+                    System.out.println("Enter product category:");
+                    String category = scanner.nextLine();
+                    System.out.println("Enter quantity in stock:");
+                    int quantityInStock = scanner.nextInt();
+                    System.out.println("Enter price per unit:");
+                    double pricePerUnit = scanner.nextDouble();
+                    Product product = new Product(productId, productName, category, quantityInStock, pricePerUnit);
+                    manager.addProduct(product);
+                    break;
+                case 2:
+                    System.out.println("Enter product ID to remove:");
+                    int removeId = scanner.nextInt();
+                    manager.removeProduct(removeId);
+                    break;
+                case 3:
+                    System.out.println("Enter product ID to update quantity:");
+                    int updateId = scanner.nextInt();
+                    System.out.println("Enter new quantity:");
+                    int newQuantity = scanner.nextInt();
+                    manager.updateQuantity(updateId, newQuantity);
+                    break;
+                case 4:
+                    manager.displayInventory();
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
+        }
+    }
+}
